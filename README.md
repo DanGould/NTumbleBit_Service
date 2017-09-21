@@ -1,4 +1,4 @@
-# NTumbleBit Compose
+# NTumbleBit Service
 
 NTumbleBit Compose is a deployment of NTumbleBit that includes
 - NTumbleBit
