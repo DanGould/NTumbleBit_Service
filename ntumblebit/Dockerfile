@@ -19,8 +19,8 @@ WORKDIR /NTumbleBit
 RUN dotnet restore
 
 # TODO read config from shared volume
-COPY server.config /.ntumblebit/Testnet/server.config
+COPY server.config /root/.ntumblebitserver/TestNet/server.config
 
 # Start the tumbler server
 WORKDIR /NTumbleBit/NTumbleBit.ClassicTumbler.Server.CLI
-RUN dotnet run -testnet
+CMD dotnet run -testnet
