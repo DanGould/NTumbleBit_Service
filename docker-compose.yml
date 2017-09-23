@@ -7,13 +7,10 @@ services:
       - bitcoin-testnet-data:/bitcoin
       - "./bitcoin.conf:/bitcoin/.bitcoin/bitcoin.conf"
     ports:
-      - "127.0.0.1:18332:18332"
-      - "8333:8333" 
+      - "18332:18332"
   ntumblebit:
     build: ./ntumblebit
     image: ntumblebit:latest
-    ports:
-      - "127.0.0.1:26174:26174"
     depends_on:
       - bitcoind
 
