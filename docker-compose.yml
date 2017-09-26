@@ -8,11 +8,18 @@ services:
       - "./bitcoin.conf:/bitcoin/.bitcoin/bitcoin.conf"
     ports:
       - "18332:18332"
+  tor:
+    build: ./tor
+    image: tor:latest
+    ports:
+      - "9050:9050"
+      - "9051:9051"
   ntumblebit:
     build: ./ntumblebit
     image: ntumblebit:latest
     depends_on:
       - bitcoind
+      - tor
 
 volumes:
   bitcoin-testnet-data:
