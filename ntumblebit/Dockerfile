@@ -12,15 +12,22 @@ RUN sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft
 RUN apt-get update
 RUN apt-get -y install dotnet-sdk-2.0.0
 
-# TODO run as NTumbleBit user
+# Use non-root user "ntumblebit"
+RUN useradd -r -u 1001 ntumblebit
+RUN mkdir /home/ntumblebit
+COPY NTumbleBit /home/ntumblebit/NTumbleBit
+RUN chown -R 1001 /home/ntumblebit
+RUN chmod u+w /home/ntumblebit
+
+USER ntumblebit
+WORKDIR /home/ntumblebit/NTumbleBit
+
 # Get NTumbleBit
-COPY NTumbleBit /NTumbleBit/
-WORKDIR /NTumbleBit
 RUN dotnet restore
 
 # TODO read config from shared volume
-COPY server.config /root/.ntumblebitserver/TestNet/server.config
+COPY server.config /home/ntumblebit/.ntumblebitserver/TestNet/server.config
 
 # Start the tumbler server
-WORKDIR /NTumbleBit/NTumbleBit.ClassicTumbler.Server.CLI
+WORKDIR /home/ntumblebit/NTumbleBit/NTumbleBit.ClassicTumbler.Server.CLI
 CMD dotnet run -testnet
