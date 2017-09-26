@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services:
 
   bitcoind:
@@ -8,18 +8,35 @@ services:
       - "./bitcoin.conf:/bitcoin/.bitcoin/bitcoin.conf"
     ports:
       - "18332:18332"
+    networks:
+      ntumblebit:
+        ipv4_address: 10.5.0.5
   tor:
     build: ./tor
     image: tor:latest
     ports:
       - "9050:9050"
       - "9051:9051"
+    networks:
+      ntumblebit:
+        ipv4_address: 10.5.0.6
   ntumblebit:
     build: ./ntumblebit
     image: ntumblebit:latest
+    networks:
+      ntumblebit:
+        ipv4_address: 10.5.0.7
     depends_on:
       - bitcoind
       - tor
 
 volumes:
   bitcoin-testnet-data:
+
+networks:
+  ntumblebit:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
