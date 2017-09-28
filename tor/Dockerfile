@@ -15,5 +15,8 @@ RUN mkdir /home/tor
 RUN chown 1001 /home/tor
 USER tor
 
-CMD ["tor", "-controlport", "9051"]
+# Copy runtime config
+COPY torrc /etc/tor/torrc
+
+CMD ["tor"]
 
