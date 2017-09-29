@@ -8,9 +8,6 @@ services:
       - "./bitcoin.conf:/bitcoin/.bitcoin/bitcoin.conf"
     expose:
       - "18332"
-    networks:
-      ntumblebit:
-        ipv4_address: 10.5.0.5
   tor:
     build: ./tor
     image: tor:latest
@@ -18,16 +15,10 @@ services:
     ports:
       - "9050:9050"
       - "9051:9051"
-    networks:
-      ntumblebit:
-        ipv4_address: 10.5.0.6
   ntumblebit:
     build: ./ntumblebit
     image: ntumblebit:latest
     user: "1001"
-    networks:
-      ntumblebit:
-        ipv4_address: 10.5.0.7
     depends_on:
       - bitcoind
       - tor
@@ -35,10 +26,3 @@ services:
 volumes:
   bitcoin-testnet-data:
 
-networks:
-  ntumblebit:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 10.5.0.0/16
-          gateway: 10.5.0.1
