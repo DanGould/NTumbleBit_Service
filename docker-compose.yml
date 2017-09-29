@@ -19,8 +19,9 @@ services:
     build: ./ntumblebit
     image: ntumblebit:latest
     user: "1001"
-    depends_on:
+    links:
       - bitcoind
+    depends_on:
       - tor
 
 volumes:
