@@ -6,8 +6,8 @@ services:
     volumes:
       - bitcoin-testnet-data:/bitcoin
       - "./bitcoin.conf:/bitcoin/.bitcoin/bitcoin.conf"
-    ports:
-      - "18332:18332"
+    expose:
+      - "18332"
     networks:
       ntumblebit:
         ipv4_address: 10.5.0.5
