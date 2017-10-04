@@ -9,19 +9,19 @@ services:
     expose:
       - "18332"
   tor:
-    build: ./tor
-    image: tor:latest
+    image: dangould/tor:latest
+    volumes:
+      - "./torrc:/etc/tor/.torrc"
     user: "1001"
     ports:
       - "9050:9050"
-      - "9051:9051"
+      - "127.0.0.1:9051:9051"
   ntumblebit:
     build: ./ntumblebit
     image: ntumblebit:latest
     user: "1001"
     links:
       - bitcoind
-    depends_on:
       - tor
 
 volumes:
